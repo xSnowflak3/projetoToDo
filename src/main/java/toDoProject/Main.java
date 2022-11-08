@@ -19,9 +19,9 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Connection c = ConnectionFactory.getConnection();
+        Connection connection = ConnectionFactory.getConnection();
         
-        ConnectionFactory.closeConnection(c);
+        ConnectionFactory.closeConnection(connection);
     }
     
 }

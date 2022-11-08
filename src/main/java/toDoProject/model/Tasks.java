@@ -3,6 +3,7 @@ package toDoProject.model;
 
 import java.util.Date;
 
+
 public class Tasks {
     private int id;
     private int idProject;
@@ -13,25 +14,27 @@ public class Tasks {
     private Date deadline;
     private Date createdAt;
     private Date updatedAt;
+    
+    public Tasks (){
+        this.createdAt = new Date();
+        this.updatedAt = new Date ();
+        this.completed = false;
+    }
 
     public Tasks(int id, int idProject, String name, String description, 
-            boolean completed, String notes, Date deadline, Date createdAt, 
+            boolean isCompleted, String notes, Date deadline, Date createdAt, 
             Date updatedAt) {
         this.id = id;
         this.idProject = idProject;
         this.name = name;
         this.description = description;
-        this.completed = completed;
+        this.completed = isCompleted;
         this.notes = notes;
         this.deadline = deadline;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-    
-    public Tasks (){
-        this.createdAt = new Date();
-    }
-
+     
     public int getId() {
         return id;
     }
@@ -71,6 +74,8 @@ public class Tasks {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+    
+    
 
     public String getNotes() {
         return notes;
@@ -112,6 +117,8 @@ public class Tasks {
                 ", deadline=" + deadline + ", createdAt=" + createdAt + 
                 ", updatedAt=" + updatedAt + '}';
     }
+
+   
     
     
     

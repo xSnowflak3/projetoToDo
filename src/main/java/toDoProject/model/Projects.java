@@ -1,31 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package toDoProject.model;
+
 import java.util.Date;
+//import java.util.List;
+import java.util.logging.Logger;
 
 /**
- * 
+ *
  *
  * @author marqu
  */
 public class Projects {
-    
+
     private int id;
     private String name;
     private String description;
     private Date createdAt;
     private Date updatedAt;
+    private static final Logger LOG = Logger.getLogger(Projects.class.getName());
 
-    public Projects(int id, String name, String description, Date createdAt, Date updatedAt) {
+    public Projects (int id, String name, String description, Date createdAt, Date updatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+    
+    public Projects () {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public int getId() {
@@ -70,9 +73,7 @@ public class Projects {
 
     @Override
     public String toString() {
-        return "projects{" + "id=" + id + ", name=" + name + ", description=" + description + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + '}';
+          return name;
     }
-    
-    
-    
+
 }
