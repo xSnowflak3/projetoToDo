@@ -51,7 +51,7 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
         projectTitle.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         projectTitle.setForeground(new java.awt.Color(255, 255, 255));
         projectTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        projectTitle.setText("  PROJETO");
+        projectTitle.setText(" Novo Projeto");
 
         projectSaveIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/check.png"))); // NOI18N
         projectSaveIcon.addMouseListener(new java.awt.event.MouseAdapter() {

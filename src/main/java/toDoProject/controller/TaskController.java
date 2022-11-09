@@ -16,14 +16,9 @@ import toDoProject.util.ConnectionFactory;
 public class TaskController {
 
     public void save(Tasks task) {
-        String sql = "INSERT IN TO tasks (idProject"
-                + "name,"
-                + "description,"
-                + "completed,"
-                + "notes,"
-                + "deadeline,"
-                + "createdAt,"
-                + "updateAt) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO tasks (idProject, name, description, "
+                + "completed, notes, deadline, createdAt,updatedAt) "
+                + "VALUES(?,?,?,?,?,?,?,?)";
 
         Connection connection = null;
         PreparedStatement statement = null;
@@ -31,6 +26,7 @@ public class TaskController {
         try {
             connection = ConnectionFactory.getConnection();
             statement = connection.prepareStatement(sql);
+            
             statement.setInt(1, task.getIdProject());
             statement.setString(2, task.getName());
             statement.setString(3, task.getDescription());

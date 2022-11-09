@@ -85,7 +85,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="  PROJETO"/>
+            <Property name="text" type="java.lang.String" value=" Novo Projeto"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="projectSaveIcon">

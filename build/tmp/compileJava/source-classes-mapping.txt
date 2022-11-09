@@ -1,11 +1,16 @@
 toDoProject/model/Tasks.java
  toDoProject.model.Tasks
-toDoProject/controller/TaskController.java
- toDoProject.controller.TaskController
+toDoProject/view/ProjectDialogScreen.java
+ toDoProject.view.ProjectDialogScreen
+ toDoProject.view.ProjectDialogScreen$1
+ toDoProject.view.ProjectDialogScreen$2
+ toDoProject.view.ProjectDialogScreen$2$1
 toDoProject/model/Projects.java
  toDoProject.model.Projects
 toDoProject/util/ConnectionFactory.java
  toDoProject.util.ConnectionFactory
+toDoProject/controller/ProjectController.java
+ toDoProject.controller.ProjectController
 toDoProject/view/MainScreen.java
  toDoProject.view.MainScreen
  toDoProject.view.MainScreen$1
@@ -13,17 +18,13 @@ toDoProject/view/MainScreen.java
  toDoProject.view.MainScreen$3
  toDoProject.view.MainScreen$4
  toDoProject.view.MainScreen$5
+toDoProject/Main.java
+ toDoProject.Main
+toDoProject/controller/TaskController.java
+ toDoProject.controller.TaskController
 toDoProject/view/TaskDialogScreen.java
  toDoProject.view.TaskDialogScreen
  toDoProject.view.TaskDialogScreen$1
  toDoProject.view.TaskDialogScreen$2
- toDoProject.view.TaskDialogScreen$2$1
-toDoProject/Main.java
- toDoProject.Main
-toDoProject/controller/ProjectController.java
- toDoProject.controller.ProjectController
-toDoProject/view/ProjectDialogScreen.java
- toDoProject.view.ProjectDialogScreen
- toDoProject.view.ProjectDialogScreen$1
- toDoProject.view.ProjectDialogScreen$2
- toDoProject.view.ProjectDialogScreen$2$1
+ toDoProject.view.TaskDialogScreen$3
+ toDoProject.view.TaskDialogScreen$3$1
