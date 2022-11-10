@@ -1,13 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package toDoProject.view;
 
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import toDoProject.controller.ProjectController;
+import toDoProject.controller.TaskController;
+import toDoProject.model.Projects;
 
 
 /**
@@ -16,12 +19,18 @@ import java.awt.Font;
  */
 public class MainScreen extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainScreen
-     */
+    ProjectController projectController;
+    TaskController taskController;
+    DefaultListModel projectModel;
+   
+    
+    
+    
     public MainScreen() {
         initComponents();
         decorateTasksTable();
+        initDataController();
+        initComponentsModel();
     }
 
     @SuppressWarnings("unchecked")
@@ -197,11 +206,6 @@ public class MainScreen extends javax.swing.JFrame {
         panelLists.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         projectsLists.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        projectsLists.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         projectsLists.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         projectsLists.setFixedCellHeight(30);
         projectsLists.setSelectionBackground(new java.awt.Color(0, 102, 51));
@@ -213,7 +217,7 @@ public class MainScreen extends javax.swing.JFrame {
             panelListsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelListsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelProjectsLists)
+                .addComponent(panelProjectsLists, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelListsLayout.setVerticalGroup(
@@ -267,7 +271,7 @@ public class MainScreen extends javax.swing.JFrame {
             panelTasksListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTasksListLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTasksTable, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+                .addComponent(jTasksTable, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTasksListLayout.setVerticalGroup(
@@ -315,13 +319,22 @@ public class MainScreen extends javax.swing.JFrame {
     private void projectsAddIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_projectsAddIconMouseClicked
         ProjectDialogScreen projectDialogScreen = new ProjectDialogScreen(this, true);
         projectDialogScreen.setVisible(true);
+        projectDialogScreen.addWindowListener(new WindowAdapter(){
+            public void windowClosed (WindowEvent e){
+                loadProjects();
+            }
+    });
     }//GEN-LAST:event_projectsAddIconMouseClicked
 
     private void tasksAddIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tasksAddIconMouseClicked
         TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, rootPaneCheckingEnabled);
         //taskDialogScreen.setProject(null);
         taskDialogScreen.setVisible(true);
-        //
+        taskDialogScreen.addWindowListener(new WindowAdapter(){
+            public void windowClosed (WindowEvent e){
+               // loadTasks();
+            }
+    });
     }//GEN-LAST:event_tasksAddIconMouseClicked
 
     /**
@@ -382,6 +395,27 @@ public class MainScreen extends javax.swing.JFrame {
         tasksTable.getTableHeader().setForeground (new Color(255,255,255));
         
         tasksTable.setAutoCreateRowSorter(true);
+    }
+    public void initComponentsModel(){
+        projectModel = new DefaultListModel();
+        loadProjects();
+    }
+    
+    
+    public void initDataController(){
+        projectController = new ProjectController();
+        taskController = new TaskController ();        
+    }
+    
+    public void loadProjects(){
+        List<Projects> projects = projectController.getAll();
+        projectModel.clear();
+        for(int i=0; i<projects.size(); i++) {
+            Projects project = projects.get(i);
+            projectModel.addElement(project);
+            
+        }
+        projectsLists.setModel(projectModel);
     }
 
 }
