@@ -11,6 +11,9 @@ import javax.swing.DefaultListModel;
 import toDoProject.controller.ProjectController;
 import toDoProject.controller.TaskController;
 import toDoProject.model.Projects;
+import toDoProject.model.Tasks;
+import toDoProject.util.TaskTableModel;
+
 
 
 /**
@@ -21,8 +24,8 @@ public class MainScreen extends javax.swing.JFrame {
 
     ProjectController projectController;
     TaskController taskController;
-    DefaultListModel projectModel;
-   
+    DefaultListModel projectsModel;
+    TaskTableModel tasksModel;
     
     
     
@@ -55,7 +58,7 @@ public class MainScreen extends javax.swing.JFrame {
         projectsLists = new javax.swing.JList<>();
         panelTasksList = new javax.swing.JPanel();
         jTasksTable = new javax.swing.JScrollPane();
-        tasksTable = new javax.swing.JTable();
+        tasksTableList = new javax.swing.JTable();
 
         empityListTasksIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         empityListTasksIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lists.png"))); // NOI18N
@@ -95,6 +98,7 @@ public class MainScreen extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(800, 800));
         setMinimumSize(new java.awt.Dimension(800, 800));
 
         panelToolbar.setBackground(new java.awt.Color(0, 102, 51));
@@ -231,8 +235,8 @@ public class MainScreen extends javax.swing.JFrame {
         panelTasksList.setBackground(new java.awt.Color(255, 255, 255));
         panelTasksList.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        tasksTable.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        tasksTable.setModel(new javax.swing.table.DefaultTableModel(
+        tasksTableList.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        tasksTableList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -260,10 +264,11 @@ public class MainScreen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tasksTable.setRowHeight(30);
-        tasksTable.setSelectionBackground(new java.awt.Color(0, 153, 0));
-        tasksTable.setShowVerticalLines(false);
-        jTasksTable.setViewportView(tasksTable);
+        tasksTableList.setRowHeight(30);
+        tasksTableList.setSelectionBackground(new java.awt.Color(0, 153, 0));
+        tasksTableList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tasksTableList.setShowVerticalLines(false);
+        jTasksTable.setViewportView(tasksTableList);
 
         javax.swing.GroupLayout panelTasksListLayout = new javax.swing.GroupLayout(panelTasksList);
         panelTasksList.setLayout(panelTasksListLayout);
@@ -383,22 +388,31 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JList<String> projectsLists;
     private javax.swing.JLabel projectsTitle;
     private javax.swing.JLabel tasksAddIcon;
-    private javax.swing.JTable tasksTable;
+    private javax.swing.JTable tasksTableList;
     private javax.swing.JLabel tasksTitle;
     private javax.swing.JLabel toolbarSubTitle;
     private javax.swing.JLabel toolbarTitle;
     // End of variables declaration//GEN-END:variables
 
     public void decorateTasksTable(){
-        tasksTable.getTableHeader().setFont(new Font("Trebuchet MS", Font.BOLD, 14));
-        tasksTable.getTableHeader().setBackground (new Color(0,153,102));
-        tasksTable.getTableHeader().setForeground (new Color(255,255,255));
+        tasksTableList.getTableHeader().setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+        tasksTableList.getTableHeader().setBackground (new Color(0,153,102));
+        tasksTableList.getTableHeader().setForeground (new Color(255,255,255));
         
-        tasksTable.setAutoCreateRowSorter(true);
+        tasksTableList.setAutoCreateRowSorter(true);
     }
     public void initComponentsModel(){
-        projectModel = new DefaultListModel();
+        projectsModel = new DefaultListModel();
         loadProjects();
+        
+        tasksModel = new TaskTableModel();
+        tasksTableList.setModel(tasksModel);
+        loadTasks(2);
+    }
+    
+    public void loadTasks (int idProject) {
+        List<Tasks> tasks = taskController.getAll(idProject);
+        tasksModel.setTasks(tasks);
     }
     
     
@@ -409,13 +423,13 @@ public class MainScreen extends javax.swing.JFrame {
     
     public void loadProjects(){
         List<Projects> projects = projectController.getAll();
-        projectModel.clear();
+        projectsModel.clear();
         for(int i=0; i<projects.size(); i++) {
             Projects project = projects.get(i);
-            projectModel.addElement(project);
+            projectsModel.addElement(project);
             
         }
-        projectsLists.setModel(projectModel);
+        projectsLists.setModel(projectsModel);
     }
 
 }

@@ -86,13 +86,13 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
         projectName.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         projectName.setText("Nome:");
 
-        projectTextName.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        projectTextName.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
 
         projectDescription.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         projectDescription.setText("Descrição:");
 
         projectDescriptionArea.setColumns(20);
-        projectDescriptionArea.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
+        projectDescriptionArea.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         projectDescriptionArea.setRows(5);
         projectTextDescription.setViewportView(projectDescriptionArea);
 
@@ -120,7 +120,7 @@ public class ProjectDialogScreen extends javax.swing.JDialog {
                 .addComponent(projectDescription)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(projectTextDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
