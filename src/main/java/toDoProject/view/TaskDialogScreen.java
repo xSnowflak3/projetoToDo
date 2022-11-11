@@ -13,13 +13,13 @@ import toDoProject.model.Projects;
  */
 public class TaskDialogScreen extends javax.swing.JDialog {
 
-   TaskController controller;
-   Projects project;
-       
+    TaskController controller;
+    Projects project;
+
     public TaskDialogScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         controller = new TaskController();
     }
 
@@ -46,6 +46,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         taskTextNotes = new javax.swing.JTextArea();
         taskNotes = new javax.swing.JLabel();
         taskTextDeadline = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -85,7 +86,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         );
 
         taskName.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        taskName.setText("Nome:");
+        taskName.setText("Nome*:");
 
         taskTextName.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
 
@@ -115,6 +116,9 @@ public class TaskDialogScreen extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Campos com asterisco (*) são obrigatórios.");
+
         javax.swing.GroupLayout taskContentLayout = new javax.swing.GroupLayout(taskContent);
         taskContent.setLayout(taskContentLayout);
         taskContentLayout.setHorizontalGroup(
@@ -128,7 +132,8 @@ public class TaskDialogScreen extends javax.swing.JDialog {
                     .addComponent(taskDeadline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(taskNotesArea)
                     .addComponent(taskNotes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(taskTextDeadline))
+                    .addComponent(taskTextDeadline)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         taskContentLayout.setVerticalGroup(
@@ -146,11 +151,13 @@ public class TaskDialogScreen extends javax.swing.JDialog {
                 .addComponent(taskDeadline)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(taskTextDeadline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(taskNotes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(taskNotesArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,28 +182,36 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void taskSaveIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taskSaveIconMouseClicked
-       
-        try{
-        Tasks task = new Tasks();
-        
-        task.setIdProject(project.getId());
-        task.setName(taskTextName.getText());
-        task.setDescription(taskTextDescription.getText());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/y");
-        Date deadline = null;
-        deadline = dateFormat.parse(taskTextDeadline.getText());
-        task.setDeadline(deadline);
-        task.setNotes(taskTextNotes.getText());
-        task.setCompleted(false);
-                
-        controller.save(task);
-        JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso!");
 
-        } catch (Exception ex){
+        try {
+
+            if (!taskTextName.getText().equals("")
+                    && !taskTextDeadline.getText().equals("")) {
+
+                Tasks task = new Tasks();
+
+                task.setIdProject(project.getId());
+                task.setName(taskTextName.getText());
+                task.setDescription(taskTextDescription.getText());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/y");
+                Date deadline = null;
+                deadline = dateFormat.parse(taskTextDeadline.getText());
+                task.setDeadline(deadline);
+                task.setNotes(taskTextNotes.getText());
+                task.setCompleted(false);
+                controller.save(task);
+                JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso!");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "O projeto não foi salvo"
+                        + " pois existem campos obrigatórios a serem preenchidos");
+            }
+
+            }catch (Exception ex){
             JOptionPane.showMessageDialog (rootPane,ex.getMessage());
         }
-        this.dispose();
-        
+            
+
     }//GEN-LAST:event_taskSaveIconMouseClicked
 
     private void taskTextDeadlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taskTextDeadlineActionPerformed
@@ -246,6 +261,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel taskContent;
     private javax.swing.JLabel taskDeadline;
     private javax.swing.JLabel taskDescription;
@@ -261,11 +277,9 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     private javax.swing.JLabel taskTitle;
     private javax.swing.JPanel taskToolbar;
     // End of variables declaration//GEN-END:variables
-    
-    public void setProject (Projects project){
+
+    public void setProject(Projects project) {
         this.project = project;
     }
-    
-    
 
 }
